@@ -18,7 +18,7 @@ class SightingsList extends Component {
           <tbody>
             {this.props.sightings.map((sight) => {
               return (
-                <tr>
+                <tr key={sight.id}>
                   <td>{sight.species}</td>
                   <td>{sight.description}</td>
                   <td>{sight.dateTime}</td>
@@ -34,13 +34,15 @@ class SightingsList extends Component {
 }
 
 SightingsList.propTypes = {
-  sightings: PropTypes.arrayOf({
-    id: PropTypes.number,
-    species: PropTypes.string,
-    description: PropTypes.string,
-    dateTime: PropTypes.string,
-    count: PropTypes.number,
-  }).isRequired,
+  sightings: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      species: PropTypes.string,
+      description: PropTypes.string,
+      dateTime: PropTypes.string,
+      count: PropTypes.number,
+    })
+  ).isRequired,
 };
 
 export default SightingsList;
