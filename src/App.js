@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SightingsView from './SightingsView';
+import NewSightingForm from './NewSightingForm';
 
 class App extends Component {
   render() {
@@ -25,7 +26,7 @@ class App extends Component {
               <SightingsView />
             </div>
             <div id="submit" className="tab-pane fade">
-
+              <NewSightingForm />
             </div>
           </div>
         </div>
