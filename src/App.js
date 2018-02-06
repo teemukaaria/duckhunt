@@ -12,7 +12,22 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
-          <SightingsView />
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <a className="nav-link active" data-toggle="tab" href="#sightings">Sightings</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" data-toggle="tab" href="#submit">Submit</a>
+            </li>
+          </ul>
+          <div className="tab-content">
+            <div id="sightings" className="tab-pane fade active show">
+              <SightingsView />
+            </div>
+            <div id="submit" className="tab-pane fade">
+
+            </div>
+          </div>
         </div>
       </div>
     );
