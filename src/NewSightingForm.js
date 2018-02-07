@@ -19,7 +19,7 @@ class NewSightingForm extends Component {
       species: $('#speciesSelect').val(),
       description: $('#descriptionText').val(),
       dateTime: $('#dateInput').val() + 'T' + $('#timeInput').val() + ':00Z',
-      count: $('#countNumber').val(),
+      count: parseInt($('#countNumber').val()),
     };
     fetch('http://localhost:8080/sightings', {
       method: 'POST',
@@ -41,7 +41,7 @@ class NewSightingForm extends Component {
           <div className="form-group row">
             <label htmlFor="speciesSelect" className="col-form-label col-4 col-md-2">Species</label>
             <div className="col-7 col-sm-5 col-md-4 col-lg-2">
-              <select className="custom-select" id="speciesSelect" required>
+              <select className="custom-select col-12" id="speciesSelect" required>
                 <option value="">Species...</option>
                 {species.map((entry) => <option key={entry.name} value={entry.name}>{entry.name}</option>)}
               </select>

@@ -6,8 +6,8 @@ class SightingsList extends Component {
   render() {
     return (
       <div>
-        <table className="table">
-          <thead>
+        <table className="table table-responsive">
+          <thead className="thead-inverse">
             <tr>
               <th>Species</th>
               <th>Description</th>
@@ -16,12 +16,19 @@ class SightingsList extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.sightings.map((sight) => {
+            {
+              this.props.sightings.map((sight) => {
               return (
                 <tr key={sight.id}>
                   <td>{sight.species}</td>
                   <td>{sight.description}</td>
-                  <td>{sight.dateTime}</td>
+                  <td>{new Date(sight.dateTime).toLocaleString('en-GB', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}</td>
                   <td>{sight.count}</td>
                 </tr>
               );
