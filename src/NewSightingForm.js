@@ -36,7 +36,7 @@ class NewSightingForm extends Component {
       species: $('#speciesSelect').val(),
       description: $('#descriptionText').val(),
       dateTime: new Date($('#dateInput').val() + 'T' + $('#timeInput').val()).toISOString(),
-      count: parseInt($('#countNumber').val()),
+      count: parseInt($('#countNumber').val(), 10),
     };
     fetch('http://localhost:8080/sightings', {
       method: 'POST',
