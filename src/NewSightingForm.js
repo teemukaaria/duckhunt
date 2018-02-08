@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-// test data for possible species
-const species = [{"name":"mallard"},{"name":"redhead"},{"name":"gadwall"},{"name":"canvasback"},{"name":"lesser scaup"}];
-
 /* Component to display new entry form and submit the data */
 class NewSightingForm extends Component {
   constructor(props) {
     super(props);
     this.submitForm = this.submitForm.bind(this);
     this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+
+    this.state = {
+      species: [],
+    }
+  }
+
+  componentDidMount() {
+    this.fetchSpecies();
+  }
+
+  fetchSpecies() {
+    fetch('http://localhost:8080/species', {
+      method: 'GET'
+    }).then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        species: responseJson.map(x => x.name),
+      });
+    });
   }
 
   // override form submitting to disable redirecting
@@ -18,7 +35,7 @@ class NewSightingForm extends Component {
     const data = {
       species: $('#speciesSelect').val(),
       description: $('#descriptionText').val(),
-      dateTime: $('#dateInput').val() + 'T' + $('#timeInput').val() + ':00Z',
+      dateTime: new Date($('#dateInput').val() + 'T' + $('#timeInput').val()).toISOString(),
       count: parseInt($('#countNumber').val()),
     };
     fetch('http://localhost:8080/sightings', {
@@ -43,18 +60,18 @@ class NewSightingForm extends Component {
             <div className="col-7 col-sm-5 col-md-4 col-lg-2">
               <select className="custom-select col-12" id="speciesSelect" required>
                 <option value="">Species...</option>
-                {species.map((entry) => <option key={entry.name} value={entry.name}>{entry.name}</option>)}
+                {this.state.species.map((entry) => <option key={entry} value={entry}>{entry}</option>)}
               </select>
             </div>
           </div>
           <div className="form-group row">
             <label htmlFor="dateInput" className="col-form-label col-4 col-md-2">Date</label>
             <div className="col-7 col-sm-5 col-md-4 col-lg-2">
-              <input className="form-control" type="date" id="dateInput" required />
+              <input className="form-control" type="date" id="dateInput" defaultValue={new Date().toISOString().substr(0,10)} required />
             </div>
             <label htmlFor="timeInput" className="col-form-label col-4 col-md-2">Time</label>
             <div className="col-7 col-sm-5 col-md-4 col-lg-2">
-              <input className="form-control" type="time" id="timeInput" required />
+              <input className="form-control" type="time" id="timeInput" defaultValue={new Date().toTimeString().substr(0,5)} required />
             </div>
           </div>
           <div className="form-group row">

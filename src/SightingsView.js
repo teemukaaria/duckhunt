@@ -14,7 +14,7 @@ class SightingsView extends Component {
       sightings: undefined,
       ordering: {
         field: 'time',
-        direction: 1,
+        direction: -1,
       }
     };
   }
