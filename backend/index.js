@@ -37,8 +37,9 @@ app.post('/sightings', (req, res) => {
   const description = data.description;
   const dateTime = data.dateTime;
   const count = data.count;
-  const location = (data.location !== undefined) ? data.location : 'NULL';
-  database.insertSighting(species, description, dateTime, count, location, (result) => {
+  const latitude = (data.latitude !== undefined) ? data.latitude : null;
+  const longitude = (data.longitude !== undefined) ? data.longitude : null;
+  database.insertSighting(species, description, dateTime, count, latitude, longitude, (result) => {
     res.json({ id: result });
   });
 });

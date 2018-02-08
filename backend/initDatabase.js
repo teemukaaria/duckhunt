@@ -52,7 +52,8 @@ db.serialize(() => {
     description TEXT DEFAULT "", 
     dateTime VARCHAR(25) NOT NULL,
     count INT NOT NULL,
-    location VARCHAR(13),
+    latitude VARCHAR(8) DEFAULT NULL,
+    longitude VARCHAR(9) DEFAULT NULL,
     FOREIGN KEY(species) REFERENCES Species(name)
   );`, [], (err) => {
     if (err) console.error(err);
@@ -67,7 +68,7 @@ db.serialize(() => {
   });
   // fill sightings to the table
   initialDuckData.forEach((sightingData) => {
-    db.run(`INSERT INTO Sightings (species, description, dateTime, count, location) VALUES (?, ?, ?, ?, NULL)`, 
+    db.run(`INSERT INTO Sightings (species, description, dateTime, count, latitude, longitude) VALUES (?, ?, ?, ?, NULL, NULL)`, 
       [sightingData.species, sightingData.description, sightingData.dateTime, sightingData.count], (err) => {
         if (err) console.error(err);
     });

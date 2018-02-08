@@ -37,7 +37,12 @@ td {
   text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.locationInputter select {
+  margin: 0px 5px;
+}
+.locationInputter input {
+  display: inline-block;
+}
+.form-group.row div {
+  text-align: left;
 }

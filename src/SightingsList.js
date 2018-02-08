@@ -20,26 +20,34 @@ class SightingsList extends Component {
               <th className="col-orderable" onClick={() => this.props.onOrderBy('count')}>
                 Count {(this.props.ordering.field === 'count') ? direction : ''}
               </th>
+              <th>Location</th>
             </tr>
           </thead>
           <tbody>
             {
               this.props.sightings.map((sight) => {
-              return (
-                <tr key={sight.id}>
-                  <td>{sight.species}</td>
-                  <td>{sight.description}</td>
-                  <td>{new Date(sight.dateTime).toLocaleString('en-GB', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}</td>
-                  <td>{sight.count}</td>
-                </tr>
-              );
-            })}
+                const location = (sight.latitude !== null && sight.longitude !== null) ? `${sight.latitude} ${sight.longitude}`: '';
+                return (
+                  <tr key={sight.id}>
+                    <td>{sight.species}</td>
+                    <td>{sight.description}</td>
+                    <td>{new Date(sight.dateTime).toLocaleString('en-GB', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}</td>
+                    <td>{sight.count}</td>
+                    <td>
+                      <a href={"https://www.google.fi/maps/place/" + location} target="_blank">
+                        {location}
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })
+            }
           </tbody>
         </table>
       </div>
@@ -55,6 +63,8 @@ SightingsList.propTypes = {
       description: PropTypes.string,
       dateTime: PropTypes.string,
       count: PropTypes.number,
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
     })
   ).isRequired,
   onOrderBy: PropTypes.func.isRequired,

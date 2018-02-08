@@ -26,15 +26,15 @@ function getSpecies(callback) {
 }
 
 function getSightings(callback) {
-  db.all(`SELECT id, species, description, dateTime, count, location FROM Sightings`, [], (err, rows) => {
+  db.all(`SELECT id, species, description, dateTime, count, latitude, longitude FROM Sightings`, [], (err, rows) => {
     if (err) console.log(err);
     callback(rows);
   });
 }
 
-function insertSighting(species, description, dateTime, count, location, callback) {
-  db.run(`INSERT INTO Sightings(species, description, dateTime, count, location)
-    VALUES(?, ?, ?, ?, ?)`, [species, description, dateTime, count, location], (err) => {
+function insertSighting(species, description, dateTime, count, latitude, longitude, callback) {
+  db.run(`INSERT INTO Sightings(species, description, dateTime, count, latitude, longitude)
+    VALUES(?, ?, ?, ?, ?, ?)`, [species, description, dateTime, count, latitude, longitude], (err) => {
       if (err) console.log(err);
       callback(this.lastID);
   });
