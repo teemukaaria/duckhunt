@@ -4,15 +4,22 @@ import PropTypes from 'prop-types';
 /* Component to display given sightings */
 class SightingsList extends Component {
   render() {
+    const direction = (this.props.ordering.direction > 0) ? (<i className="fa fa-sort-down"></i>) : (<i className="fa fa-sort-up"></i>);
     return (
       <div>
         <table className="table table-responsive">
           <thead className="thead-inverse">
             <tr>
-              <th>Species</th>
+              <th className="col-orderable" onClick={() => this.props.onOrderBy('species')}>
+                Species {(this.props.ordering.field === 'species') ? direction : ''}
+              </th>
               <th>Description</th>
-              <th>Time</th>
-              <th>Count</th>
+              <th className="col-orderable" onClick={() => this.props.onOrderBy('time')}>
+                Time {(this.props.ordering.field === 'time') ? direction : ''}
+              </th>
+              <th className="col-orderable" onClick={() => this.props.onOrderBy('count')}>
+                Count {(this.props.ordering.field === 'count') ? direction : ''}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -50,6 +57,11 @@ SightingsList.propTypes = {
       count: PropTypes.number,
     })
   ).isRequired,
+  onOrderBy: PropTypes.func.isRequired,
+  ordering: PropTypes.shape({
+    field: PropTypes.string,
+    direction: PropTypes.number,
+  }).isRequired,
 };
 
 export default SightingsList;
